@@ -1,0 +1,155 @@
+
+<div class="row">
+
+  <nav>
+      <button mat-button [matMenuTriggerFor]="menu">Classic Pizza</button>
+        
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/smallclassicpizza">Small Pizza</button>
+        <button mat-menu-item routerLink="/largeclassicpizza">Large Pizza</button>
+        <button mat-menu-item routerLink="/familyclassicpizza">Family Pizza</button>
+      </mat-menu>
+      <button mat-button [matMenuTriggerFor]="GourmetPizza">Gourmet Pizza</button>
+      <mat-menu #GourmetPizza="matMenu">
+          <button mat-menu-item routerLink="/smallgourmetpizza">Small Pizza</button>
+          <button mat-menu-item routerLink="/largegourmetpizza">Large Pizza</button>
+          <button mat-menu-item routerLink="/familygourmetpizza">Family Pizza</button>
+
+      </mat-menu>
+      <button mat-button routerLink="/pasta">Pasta</button>
+      <button mat-button routerLink="/entrees">Entrees</button>
+
+      <button mat-button routerLink="/sides">Sides</button>
+      <button mat-button routerLink="/desserts">Desserts</button>
+
+      <button mat-button routerLink="/softdrinks">Soft Drinks</button>
+
+    <!-- <a *ngFor="let c of categories$ | async" 
+        routerLink="/"
+        [queryParams]="{ category: c.id }"
+        [class.active]="category === c.id">
+        <button mat-button >{{c.name}}</button>
+    </a>
+     -->
+  </nav>
+</div>
+<!-- carousels -->
+<div class="carousels">
+  <ngb-carousel *ngIf="images" >
+    <ng-template ngbSlide>
+      <img [src]="images[0]" alt="Random first slide" >
+      <div class="carousel-caption">
+        <h3>BestPizza@CocoPizzaShop ... </h3>
+        <!-- <p>This carousel uses customized default values.</p> -->
+      </div>
+    </ng-template>
+    <!-- <ng-template ngbSlide>
+      <img [src]="images[1]" alt="Random second slide" height="312" width="100%">
+      <div class="carousel-caption">
+        <h3>No mouse events...</h3>
+        <p>This carousel doesn't pause or resume on mouse events</p>
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <img [src]="images[2]"  alt="Random third slide" height="312" width="100%">
+      <div class="carousel-caption">
+        <h3>No keyboard...</h3>
+        <p>This carousel uses customized default values.</p>
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <img [src]="images[3]" alt="Random fourth slide " height="312" width="100%">
+      <div class="carousel-caption">
+        <h3>And no wrap after last slide.</h3>
+        <p>This carousel uses customized default values.</p>
+      </div>
+    </ng-template> -->
+  </ngb-carousel>
+  
+</div>
+
+<mat-spinner value="warn" *ngIf="isload"></mat-spinner>
+
+<div class="row">
+  <ng-container *ngFor="let p of filteredProducts; let  i=index" >
+      <div class="col">
+          <mat-card class="example-card" style="width: 15rem; margin: 5px 5px 5px 5px; padding: 15px 15px; ">
+             <mat-card-header>
+                <!-- <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title>Shiba Inu</mat-card-title>
+                <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+              </mat-card-header> 
+              <img mat-card-image src="{{p.imageUrl}}" alt="cocopizzashop-pizza-deals">
+              <mat-card-content>
+                  <!-- <mat-card-title>{{p.pizzaName}}</mat-card-title> -->
+
+                  <mat-accordion>
+                      <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false"  >
+                        <mat-expansion-panel-header style="margin-top:2px; padding: 2px 2px;">
+                          <mat-panel-title >
+                              <mat-card-title >
+                                  {{p.pizzaName}} / {{p.price | currency:'AUD'}}{{p.large}}           
+                              </mat-card-title>
+                          </mat-panel-title>
+                          <mat-panel-description>
+                           
+                          </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <mat-card-subtitle style="word-wrap:break-word; text-align: left;">
+                            {{p.toppings}}
+                      </mat-card-subtitle>                      
+                    </mat-expansion-panel>
+                  </mat-accordion>
+
+                      <!-- <mat-card-subtitle style="word-wrap:break-word; text-align: left;">
+                            {{p.toppings}}
+                      </mat-card-subtitle>
+               -->
+                  
+            
+            <!-- Show popup Top window can select toppings -->
+            <!-- <mat-form-field class="example-full-width">
+                <mat-label>Choice your flavor : </mat-label>
+                <select matNativeControl  ngModel name="size" (change)="sizeChange($event)"> 
+                  <option value={{p.SMALL}}>SMALL / AUD${{p.SMALL}}</option>
+                  <option value={{p.LARGE}}>LARGE / AUD${{p.LARGE}}</option>
+                  <option value={{p.FAMILY}}>FAMILY / AUD${{p.FAMILY}}</option>
+                </select>
+            </mat-form-field>   -->
+
+
+        
+             <div>
+                <!-- <button  class="btn btn-sm btn-warning" (click)="openDialog()">Extra Toppings</button> -->
+
+                <button  class="btn btn-sm btnColor ml-2 mt-2" (click)="addToCart(p.pizzaName,p.large, p.price)">Add to Cart</button>
+
+      
+
+            </div>
+            <!-- <div class="example-button-row">
+                <a mat-mini-fab  color="warn" (click)="reMoveFromCart(cart.items[productId].product)">-</a>
+                <button mat-mini-fab>{{cart.items[productId].quantity}}</button>
+                <a mat-mini-fab  color="primary" (click)="addToCart(cart.items[productId].product)">+</a>
+          </div> -->
+
+
+            <!-- <div style="word-wrap:break-word; text-align: left;">
+               Extra: <i>AUD:${{price_toppings}}</i>
+            </div> -->
+
+              </mat-card-content>
+              <mat-card-actions>
+                <!-- <button mat-button>Add to Cart</button> -->
+                <!-- <button mat-button>SHARE</button> -->
+              </mat-card-actions>
+          </mat-card>
+      </div>
+      <div></div>
+      <div *ngIf="(i +1)%4 === 0" class="w-100"></div>
+  </ng-container>
+
+    
+</div>

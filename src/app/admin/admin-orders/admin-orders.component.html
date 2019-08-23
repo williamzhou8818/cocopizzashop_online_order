@@ -1,0 +1,90 @@
+<h3 style="margin-top: 75px;">Orders</h3>
+<p>Today is, {{today | date:'fullDate'}}</p>
+
+<table class="table" class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Customer</th>
+        <th scope="col">Order DateTime</th>
+        <th scope="col">OrderStand</th>
+        <th scope="col"></th>
+        <th>Status</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders$ | async; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{order.shipping.name}}
+        </td>
+        <td>{{order.datePlaced|date:'medium'}}</td>
+        <td>
+            <h6>{{order.shipping.startorder |  uppercase}}</h6>
+        </td>
+
+        <td>  
+            <ng-template #content let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title"> {{order.shipping.startorder |  uppercase}} - {{order.payFor}} </h4>
+                  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" >
+                  <ul class="list-group list-group-flush">
+                    <li  class="list-group-item" *ngIf="order.shipping.startorder === 'delivery'">Delivery Address: {{order.shipping.address}}, {{order.shipping.suburb}},{{order.shipping.postcode}} </li>
+                    <li  class="list-group-item">Phone: {{order.shipping.phone}}  </li>
+                    <li  class="list-group-item" *ngIf="order.shipping.startorder === 'pickup'">PickUp At: {{order.time.hour}} : {{order.time.minute}} </li>
+          
+                  </ul>
+                  <hr>
+                  <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">Order Summary</h6>
+                        <ul class="list-group list-group-flush" *ngFor="let item of order.items; let j = index">   
+                            <li class="list-group-item">{{j+1}})  {{item.product.size}} - {{item.product.product}} x {{item.quantity}} ... {{item.subPrice| currency:'AUD':true}}</li> 
+            
+                         </ul>   
+                         <hr>  <p><strong>Total:{{order.totalPrice| currency:'AUD':true}}</strong> </p>
+                      
+      
+                    </div>
+                  </div>
+                  
+                  
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Print</button>
+                </div>
+              </ng-template>
+              
+              <button class="btn btn-lg btn-outline-primary" (click)="open(content)">View Order</button>
+            <!-- <button class="btn btn-lg btn-outline-primary"  (click)="show = !show" ng-model="show">View Order</button> -->
+            <!-- <button mat-button (click)="openDialog()">Open dialog</button> -->
+            <!-- <div >
+               
+                  <ul *ngFor="let item of order.items; let j = index"  class="list-group"  >
+                     
+                      <li *ngIf="show" class="list-group-item">{{j+1}}) {{item.product.size}} - {{item.product.product}} x {{item.quantity}} ... {{item.subPrice| currency:'AUD':true}}</li>
+                  </ul>
+                  <p><strong>Total:{{order.totalPrice| currency:'AUD':true}}</strong> </p>
+
+            </div> -->
+
+        </td>
+
+        <td>
+          <button   (click)="Isdone(i)" *ngIf="order.isdone">Done</button>
+        </td>
+
+      </tr>
+     
+     
+    </tbody>
+</table>
+
+
+ 
+
+

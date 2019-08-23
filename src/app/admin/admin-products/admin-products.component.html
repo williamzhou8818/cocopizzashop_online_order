@@ -1,0 +1,27 @@
+
+
+<button mat-raised-button color="accent" routerLink="/admin/products/new">New Product</button>
+<div>
+        <mat-form-field>
+                <input 
+                    #query
+                    (keyup)="filter(query.value)"
+                     matInput placeholder="Search...">
+        </mat-form-field>
+</div>
+
+<table class="table">
+
+    <thead>
+        <tr>
+         <th>Products</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of filteredProducts">
+            <td>{{p.pizzaName}}</td>
+            <td><a [routerLink]="['/admin/products/', p.id]" >Edit</a></td>
+        </tr>
+    </tbody>
+
+</table>

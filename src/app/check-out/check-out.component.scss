@@ -1,0 +1,19 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+ button,
+a {
+  font-size: 25px;
+  height: 40px;
+  width: 100%;
+  margin:  5px 5px;
+  padding: 10px 10px;
+}
+
+.btnDelivery {
+    color: white;
+    background-color: rgb(1, 1, 51);
+}
+
+.btnPickup {
+    color: white;
+    background-color: rgb(136, 1, 1);
+}

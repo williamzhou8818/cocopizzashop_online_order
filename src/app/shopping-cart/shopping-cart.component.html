@@ -1,0 +1,57 @@
+
+<div class="row" style="margin-top: 75px;">
+    <ng-container *ngIf="cart">
+        <h6>You have {{cart.totalItemsCount}} item in your shopping cart.</h6>
+
+      <table class="table table-dark" >
+        <thead>
+          <th>Item</th>
+          <th>Size</th>
+          <th>Price</th>
+          <th style="text-align: center;">Qty</th>
+          <th>Sub Price</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cart.items" >
+             <ng-container *ngIf="item.quantity !== 0"> 
+                <td>{{item.product}}</td>
+                <!-- <td>{{cart.items[productId].pizzaSize}}</td> -->
+               
+              <td>{{item.size}}</td>
+                <td>{{item.price}}</td>
+                <td style="text-align: center;">
+                  <div class="example-button-row">
+                        <a mat-mini-fab  color="warn" (click)="reMoveFromCart(item.product,item.size,item.price)">-</a>
+                        <button  mat-flat-button>{{item.quantity}}</button>
+                        <a mat-mini-fab  color="primary" (click)="addToCart(item.product,item.size,item.price)">+</a>
+                  </div>
+                </td>
+                <!-- <input type="text" [value]="cart.items[productId].quantity * cart.items[productId].pizzaPrice"  #subPrice> -->
+                <td >{{item.price * item.quantity | currency:'AUD'}}</td>
+                <!-- <td>
+                    <a mat-mini-fab  color="warn" (click)="removeFromCart(productId)">X</a>
+                </td> -->
+             </ng-container>
+    
+         
+          </tr>
+        </tbody>
+        <tfoot>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th>Total Price: {{ cart.totalPrice | currency:'AUD'}}</th>
+    
+    
+        </tfoot>
+      </table>
+      <a class="checkOut-button-row" 
+            *ngIf="cart.items.length"
+            routerLink="/check-out"
+            >
+          <button mat-raised-button color="primary" >Check Out</button>
+    </a>
+    
+    </ng-container>
+</div>

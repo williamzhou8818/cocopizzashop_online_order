@@ -1,0 +1,124 @@
+
+
+<div class="row">
+
+    <nav>
+        <button mat-button [matMenuTriggerFor]="menu">Classic Pizza</button>
+        
+
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item routerLink="/smallclassicpizza">Small Pizza</button>
+          <button mat-menu-item routerLink="/largeclassicpizza">Large Pizza</button>
+          <button mat-menu-item routerLink="/familyclassicpizza">Family Pizza</button>
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="GourmetPizza">Gourmet Pizza</button>
+        <mat-menu #GourmetPizza="matMenu">
+            <button mat-menu-item routerLink="/smallgourmetpizza">Small Pizza</button>
+            <button mat-menu-item routerLink="/largegourmetpizza">Large Pizza</button>
+            <button mat-menu-item routerLink="/familygourmetpizza">Family Pizza</button>
+
+        </mat-menu>
+        <button mat-button routerLink="/pasta">Pasta</button>
+        <button mat-button routerLink="/entrees">Entrees</button>
+
+        <button mat-button routerLink="/sides">Sides</button>
+        <button mat-button routerLink="/desserts">Desserts</button>
+
+        <button mat-button routerLink="/softdrinks">Soft Drinks</button>
+  
+      <!-- <a *ngFor="let c of categories$ | async" 
+          routerLink="/"
+          [queryParams]="{ category: c.id }"
+          [class.active]="category === c.id">
+          <button mat-button >{{c.name}}</button>
+      </a>
+       -->
+   
+    </nav>
+      
+  </div>
+  <div class="alert alert-warning" role="alert" style="position: relative; margin-top: 25px;">
+      * ALL PASTA FRESHLY MADE TO ORDER [ SPAGHETTI, RAVIOLI, PENNE, FETTUCINI ]
+  </div>
+  <div class="row" >
+  
+    <ng-container  *ngFor="let p of _pasta; let  i=index">
+        <div class="col">
+            <mat-card class="example-card" style="width: 15rem; margin: 5px 5px 5px 5px; padding: 15px 15px; ">
+               <mat-card-header>
+                  <!-- <div mat-card-avatar class="example-header-image"></div>
+                  <mat-card-title>Shiba Inu</mat-card-title>
+                  <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+                </mat-card-header> 
+                <img mat-card-image src="../../assets/imgs/bruna-branco-t8hTmte4O_g-unsplash.png" alt="Pasta_at_Cocopizzashop">
+                <mat-card-content>
+                    <mat-accordion>
+                        <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false"  >
+                          <mat-expansion-panel-header style="margin-top:2px; padding: 2px 2px;">
+                            <mat-panel-title >
+                                <mat-card-title >
+                                    {{p.name}} / {{p.price | currency:'AUD'}}-{{p.size}}           
+                                </mat-card-title>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                             
+                            </mat-panel-description>
+                          </mat-expansion-panel-header>
+                          <mat-card-subtitle style="word-wrap:break-word; text-align: left;">
+                              {{p.toppings}}
+                        </mat-card-subtitle>                      
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                
+                
+                    
+               <div>
+                  <div class="form-group">
+                      <label for="FormControlSelectSuburb">Choice type of noodle</label>
+                      <select class="form-control" id="FormControlSelectSuburb" ngModel="noodle" name="noodle" #noodle>
+                        <option [value]="noodle" *ngFor="let noodle of p.types">{{noodle}}</option>
+          
+          
+                      </select>
+
+         
+                </div>
+                  <!-- <button  class="btn btn-sm btn-warning" (click)="openDialog()">Extra Toppings</button> -->
+                  <button  class="btn btn-sm btnColor ml-2 mt-2" (click)="addToCart(p.name,noodle.value,p.price)">Add to Cart</button>
+  
+  
+  
+              </div>
+              <!-- <div class="example-button-row">
+                  <a mat-mini-fab  color="warn" (click)="reMoveFromCart(cart.items[productId].product)">-</a>
+                  <button mat-mini-fab>{{cart.items[productId].quantity}}</button>
+                  <a mat-mini-fab  color="primary" (click)="addToCart(cart.items[productId].product)">+</a>
+            </div> -->
+  
+  
+              <!-- <div style="word-wrap:break-word; text-align: left;">
+                 Extra: <i>AUD:${{price_toppings}}</i>
+              </div> -->
+              <div>
+                
+              </div>
+                
+  
+                </mat-card-content>
+                <mat-card-actions>
+                  
+                  <!-- <button mat-button>Add to Cart</button> -->
+                  <!-- <button mat-button>SHARE</button> -->
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        <div></div>
+
+        
+        <div *ngIf="(i +1)%4 === 0" class="w-100"></div>
+    </ng-container>
+  
+      
+  </div>
+  

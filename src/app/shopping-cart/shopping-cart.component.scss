@@ -1,0 +1,19 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+table {
+    width: 100%;
+}
+
+button , mat-flat-button{
+  font-size: 16px;
+   height: 28px;
+}
+
+.checkOut-button-row button,
+.checkOut-button-row a {
+  text-align: center;
+  font-size: 13px;
+  margin: 4px  4px;
+  padding: 3px 3px;
+  width: 170px;
+  height: 45px;
+}

@@ -1,0 +1,13 @@
+<mat-card>
+    <mat-card-title>Order Summary</mat-card-title>
+
+    <mat-card-content>
+        <p>You have {{cart.totalItemsCount}} items in your shopping cart.</p>
+        <mat-list role="list" *ngFor="let item of cart.items">
+            <mat-list-item role="listitem">{{ item.quantity }} x {{item.product}}/{{item.size}} ... ... {{item.quantity*item.price | currency:'AUD':true}}</mat-list-item>
+            
+          </mat-list>
+          <mat-list style="text-align: right;"><strong>Total: {{cart.totalPrice | currency:'AUD':true}}</strong></mat-list>
+    </mat-card-content>
+
+</mat-card>

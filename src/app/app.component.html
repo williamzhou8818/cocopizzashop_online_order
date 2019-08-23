@@ -1,21 +1,101 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
-<router-outlet></router-outlet>
+<mat-drawer-container class="example-container" autosize>
+
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+        <img src="./../assets/imgs/CoCo-Pizza-Shop-Logo-copy.png" alt="CoCo Pizza Shop" width="auto" height="145px;">
+        <h3>Menu</h3>
+        <!-- <button mat-button>
+          Toggle extra text
+        </button> -->
+        <p><i class="material-icons">perm_phone_msg </i> <strong><a href="tel:98769588">(03) 98769588</a></strong>
+        </p>
+        <mat-nav-list>
+            <!-- <mat-list-item *ngFor="let c of categories$ | async">
+              <a matLine href="http://localhost:4200/?category={{c.id}}">{{c.name}}</a>
+            </mat-list-item> -->
+            <mat-list-item>
+                <button mat-button [matMenuTriggerFor]="ClassicPizzas">Classic Pizzas</button>
+                <mat-menu #ClassicPizzas="matMenu">
+                  <button mat-menu-item routerLink="/smallclassicpizza">Small Pizza</button>
+                  <button mat-menu-item routerLink="/largeclassicpizza">Large Pizza</button>
+                  <button mat-menu-item routerLink="/familyclassicpizza">Family Pizza</button>
+                </mat-menu>
+            </mat-list-item>
+            <mat-list-item> 
+                <button mat-button [matMenuTriggerFor]="GourmetPizza">Gourmet Pizza</button>
+              <mat-menu #GourmetPizza="matMenu">
+                <button mat-menu-item  routerLink="/smallgourmetpizza">Small Pizza</button>
+                <button mat-menu-item  routerLink="/largegourmetpizza">Large Pizza</button>
+                <button mat-menu-item  routerLink="/familygourmetpizza">Family Pizza</button>
+              </mat-menu>
+            </mat-list-item>
+            
+          
+            
+
+            <mat-list-item><button mat-button routerLink="/pasta">Pasta</button></mat-list-item>
+            <mat-list-item><button mat-button routerLink="/entrees">Entrees</button> </mat-list-item>
+            <mat-list-item><button mat-button routerLink="/sides">Sides</button></mat-list-item>
+            <mat-list-item>       
+               <button mat-button routerLink="/desserts">Desserts</button>
+            </mat-list-item>
+            <mat-list-item>       
+                <button mat-button routerLink="/softdrinks">Soft Drinks</button>
+              </mat-list-item>
+        </mat-nav-list>
+        <div class="sideFooter">
+                <i class="material-icons">room</i>
+            <p>Burnt Bridge Shopping Center</p>
+            <p>3a/434, Maroondah Hwy</p>
+            <p>Croydon, VIC, 3136 </p>
+        </div>
+        <p>&copy; 2019 cocopizzashop.com.au<p>
+
+      </mat-drawer>
+    <div class="example-sidenav-content">
+        <div class="icon-left">
+              <button type="button" mat-button (click)="drawer.toggle()">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">dehaze</mat-icon>
+              </button>
+    
+              <!-- <img src="./../assets/imgs/CoCo Pizza Logo.svg" alt="CoCo Pizza Shop"  width="auto" height="64px;"> -->
+             
+              <button type="button" mat-button routerLink="/">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+              </button>
+              <button type="button" mat-button routerLink="/shopping-cart">
+                <mat-icon *ngIf="cart$ | async as cart" [matBadge]="cart.totalItemsCount" matBadgePosition="above after">add_shopping_cart</mat-icon>
+              </button>
+        </div>
+        <div class="icon-right">
+            <button type="button" mat-icon-button [matMenuTriggerFor]="appMenu">
+                <i class="material-icons">
+                  settings
+                </i> 
+            </button>
+            <mat-menu #appMenu="matMenu">
+                <button mat-menu-item routerLink="#" *ngIf="appUser; else anonymousUser">Hi, <strong>{{appUser.name}}</strong> </button>
+                <button mat-menu-item routerLink="/my/orders">My Orders</button>
+                <ng-container *ngIf="appisAdmin">
+                    <button mat-menu-item routerLink="/admin/orders">Manage Orders</button>
+                    <button mat-menu-item routerLink="/admin/products">Manage Products</button>
+                </ng-container>
+                <button mat-menu-item (click)="logout()" *ngIf="auth.user$|async as user">LogOut</button>
+                <ng-template #anonymousUser>
+                      <button mat-menu-item routerLink="/login">LogIn</button>
+                </ng-template>
+                <!-- <button mat-menu-item routerLink="/login" *ngIf="!auth.user$|async as user">LogIn</button> -->
+              </mat-menu>
+        </div>
+    </div>
+<hr>
+<div class="container">
+    <!-- <mat-spinner value="warn" *ngIf="isload"></mat-spinner> -->
+  <router-outlet></router-outlet>
+    <!-- <mat-spinner value="warn" *ngIf="isload"></mat-spinner> -->
+
+</div>  
+
+</mat-drawer-container>
+
+    
